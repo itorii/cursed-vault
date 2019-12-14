@@ -2,13 +2,7 @@ package sk.cata.cursedvault.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import sk.cata.cursedvault.models.Promotion;
 import sk.cata.cursedvault.models.exception.NotFoundException;
@@ -19,6 +13,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("promotions")
 public class PromotionControllerImpl implements PromotionController {
 
     private PromotionService promotionService;
@@ -28,7 +23,7 @@ public class PromotionControllerImpl implements PromotionController {
     }
 
     @Override
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public Promotion findById(@PathVariable String id) {
         try {
             return promotionService.findById(id);
@@ -39,7 +34,7 @@ public class PromotionControllerImpl implements PromotionController {
     }
 
     @Override
-    @GetMapping("/")
+    @GetMapping(value = "/", produces = "application/json")
     public List<Promotion> findAll() {
         try {
             return promotionService.findAll();
@@ -50,7 +45,7 @@ public class PromotionControllerImpl implements PromotionController {
     }
 
     @Override
-    @PostMapping("/create")
+    @PostMapping(value = "/create", produces = "application/json")
     public Promotion create( @RequestBody Promotion promotion) {
         if(promotion == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -64,7 +59,7 @@ public class PromotionControllerImpl implements PromotionController {
     }
 
     @Override
-    @PutMapping("/update")
+    @PutMapping(value = "/update",produces = "application/json")
     public Promotion update(@RequestBody Promotion promotion) {
         if(promotion == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

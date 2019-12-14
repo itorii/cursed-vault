@@ -10,8 +10,8 @@ import sk.cata.cursedvault.repos.PromotionRepository;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 @Slf4j
+@Service
 public class PromotionServiceImpl implements PromotionService {
 
     private PromotionRepository promotionRepository;
