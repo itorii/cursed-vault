@@ -1,6 +1,8 @@
 package sk.cata.cursedvault.config;
 
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.UserType;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,8 +12,10 @@ import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.cassandra.core.CassandraTemplate;
 import org.springframework.data.cassandra.core.convert.CassandraConverter;
 import org.springframework.data.cassandra.core.convert.MappingCassandraConverter;
+import org.springframework.data.cassandra.core.cql.CqlIdentifier;
 import org.springframework.data.cassandra.core.mapping.CassandraMappingContext;
 import org.springframework.data.cassandra.core.mapping.SimpleUserTypeResolver;
+import org.springframework.data.cassandra.core.mapping.UserTypeResolver;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -39,10 +43,11 @@ public class Config {
 
     @Bean
     public CassandraMappingContext mappingContext() {
-        CassandraMappingContext mappingContext =  new CassandraMappingContext();
+        CassandraMappingContext mappingContext = new CassandraMappingContext();
         mappingContext.setUserTypeResolver(new SimpleUserTypeResolver(Objects.requireNonNull(cluster()), keyspace));
         return mappingContext;
     }
+
 
     @Bean
     public CassandraConverter converter() {
