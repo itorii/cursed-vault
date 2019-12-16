@@ -13,6 +13,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@CrossOrigin("*")
 @RequestMapping("promotions")
 public class PromotionControllerImpl implements PromotionController {
 
@@ -59,7 +60,7 @@ public class PromotionControllerImpl implements PromotionController {
     }
 
     @Override
-    @PutMapping(value = "/update",produces = "application/json")
+    @PutMapping(produces = "application/json")
     public Promotion update(@RequestBody Promotion promotion) {
         if(promotion == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
